@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS `userInfo`(
+	`id` INT UNSIGNED AUTO_INCREMENT,
+	`stu_num` VARCHAR(10) NOT NULL,
+	`stu_name` VARCHAR(10) NOT NULL,
+	`stu_pwd` VARCHAR(16) NOT NULL,
+	PRIMARY KEY ( `id` ),
+	UNIQUE (`stu_num`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
