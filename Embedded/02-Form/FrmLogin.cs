@@ -4,37 +4,30 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Windows.Forms;
 
-namespace Embedded
-{
-    public partial class FrmLogin : Form
-    {
-        public FrmLogin()
-        {
+namespace Embedded {
+    public partial class FrmLogin : Form {
+        public FrmLogin() {
             InitializeComponent();
         }
 
-        private User GetText(User user)
-        {
+        private User GetText(User user) {
             //获取用户输入信息
             user.Num = TextNum.Text.Trim();
             user.Name = TextName.Text.Trim();
             user.Pwd = TextPwd.Text.Trim();
 
             //判断是否为空
-            if (string.IsNullOrEmpty(user.Num))
-            {
+            if (string.IsNullOrEmpty(user.Num)) {
                 MessageBox.Show("请输入学号！", "登录提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 TextNum.Focus();
                 return null;
             }
-            if (string.IsNullOrEmpty(user.Name))
-            {
+            if (string.IsNullOrEmpty(user.Name)) {
                 MessageBox.Show("请输入姓名！", "登录提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 TextName.Focus();
                 return null;
             }
-            if (string.IsNullOrEmpty(user.Pwd))
-            {
+            if (string.IsNullOrEmpty(user.Pwd)) {
                 MessageBox.Show("请输入密码！", "登录提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 TextPwd.Focus();
                 return null;
@@ -43,8 +36,7 @@ namespace Embedded
             return user;
         }
 
-        private void BtnLogin_Click(object sender, EventArgs e)
-        {
+        private void BtnLogin_Click(object sender, EventArgs e) {
             User user = new User();
             user = GetText(user);
             if (user == null) {
@@ -67,13 +59,11 @@ namespace Embedded
 
             //处理结果
             object o = cmd.ExecuteScalar();
-            if (o == null || o == DBNull.Value || (Convert.ToInt32(o)) == 0)
-            {
+            if (o == null || o == DBNull.Value || (Convert.ToInt32(o)) == 0) {
                 MessageBox.Show("登录学号、姓名或密码有错，请检查！", "登录提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            else
-            {
+            else {
                 MessageBox.Show("登陆成功!", "登录提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 //转到主页面
                 FrmMain frmMain = new FrmMain();
@@ -82,11 +72,10 @@ namespace Embedded
             }
         }
 
-        private void BtnRegister_Click(object sender, EventArgs e)
-        {
+        private void BtnRegister_Click(object sender, EventArgs e) {
             User user = new User();
             user = GetText(user);
-            if (user == null){
+            if (user == null) {
                 return;
             }
 
@@ -106,13 +95,11 @@ namespace Embedded
             cmd.Prepare();
 
             //处理结果
-            try
-            {
+            try {
                 object o = cmd.ExecuteNonQuery();
                 MessageBox.Show("注册成功!", "登录提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            catch
-            {
+            catch {
                 MessageBox.Show("注册学号有错或重复，请检查！", "登录提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }

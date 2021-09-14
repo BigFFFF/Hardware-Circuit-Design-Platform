@@ -126,6 +126,7 @@
     <Compile Include="02-Form\FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="03-Function\PublicVar.cs" />
     <Compile Include="03-Function\User.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
