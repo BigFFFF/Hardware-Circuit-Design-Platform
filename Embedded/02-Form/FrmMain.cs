@@ -12,15 +12,21 @@ using System.Windows.Forms;
 namespace Embedded._02_Form {
     public partial class FrmMain : Form {
         private int pbCount;
-        private uint inputNum;
+        private int inputNum;
         private List<TextBox> inputList;
         private List<PictureBox> gateList;
 
+        public List<TextBox> InputList { get => inputList; set => inputList = value; }
+        public List<PictureBox> GateList { get => gateList; set => gateList = value; }
+
         public FrmMain() {
             InitializeComponent();
-            gateList = new List<PictureBox>();
+            InputList = new List<TextBox>();
+            GateList = new List<PictureBox>();
             pbCount = 0;
-            foreach (Control ctrl in this.BoxDesign.Controls) {
+            inputNum = 0;
+
+            foreach (Control ctrl in BoxDesign.Controls) {
                 new MoveControl(ctrl);
             }
         }
@@ -34,6 +40,7 @@ namespace Embedded._02_Form {
 
             this.toolStripStatusLabel1.Text = "您好,欢迎登录系统！" + "当前时间：" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
         }
+
 
         private void Picture_Click(string pathStr1, string gateName) {
             string pathStr2 = "", pathStr3 = "";
@@ -83,59 +90,97 @@ namespace Embedded._02_Form {
 
                     PictureBox pb = new PictureBox();
                     BoxDesign.Controls.Add(pb);
-                    gateList.Add(pb);
+                    GateList.Add(pb);
 
                     try {
-                        gateList[pbCount].Image = Image.FromFile(Application.StartupPath + "\\..\\..\\05-Image\\" + pathStr1 + " - " + pathStr2 + pathStr3 + ".png");
-                        gateList[pbCount].Name = pathStr1 + pathStr2 + pathStr3;
-                        gateList[pbCount].Size = new Size(PublicVar.PicGateWV, PublicVar.PicGateHV);
-                        gateList[pbCount].Location = new Point(PublicVar.PicGateWV * (pbCount % 16 + 1), PublicVar.PicGateHV / 2 * (pbCount + 1));
+                        GateList[pbCount].Image = Image.FromFile(Application.StartupPath + "\\..\\..\\05-Image\\" + pathStr1 + " - " + pathStr2 + pathStr3 + ".png");
+                        GateList[pbCount].Name = pathStr1;
+                        GateList[pbCount].Size = new Size(PublicVar.PicGateWV, PublicVar.PicGateHV);
+                        GateList[pbCount].Location = new Point(PublicVar.PicGateWV * ((pbCount / 8)  + 1), PublicVar.PicGateHV * ((pbCount % 8) + 1));
+                        GateList[pbCount].DoubleClick += new EventHandler(GateDouble_Click);
 
-                        new MoveControl(gateList[pbCount]);
+                        new MoveControl(GateList[pbCount]);
 
                         pbCount++;
                     }
                     catch (Exception ex) {
+                        BoxDesign.Controls.Remove(pb);
+                        GateList.Remove(pb);
                         pb.Dispose();
-                        gateList.RemoveAt(pbCount);
                         frmGate.DialogResult = DialogResult.Cancel;
                         MessageBox.Show("选择了错误方向，请检查!\n"+ ex.ToString(), "添加门电路错误提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                    
                 }
             }
         }
 
-        
+        private void GateDouble_Click(object sender, EventArgs e) {
+            PictureBox pictureBox = (PictureBox)sender;
+
+            BoxDesign.Controls.Remove(pictureBox);           
+            GateList.Remove(pictureBox);
+            pictureBox.Dispose();
+
+            pbCount--;
+        }
 
         private void BtnConfirm_Click(object sender, EventArgs e) {
+
             try {
-                inputNum = Convert.ToUInt32(TextInputNum.Text.Trim());
+                if (TextInputNum.Text.Length == 0 | Convert.ToInt32(TextInputNum.Text.Trim()) < 1 | Convert.ToInt32(TextInputNum.Text.Trim()) > 256) {
+                    MessageBox.Show("输入端数有误，请检查！", "输入端数错误提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                for (int i = inputNum - 1; i >= 0; i--) {
+                    BoxDesign.Controls.Remove(InputList[i]);
+                    InputList[i].Dispose();
+                }
+                InputList.Clear();
+
+                inputNum = Convert.ToInt32(TextInputNum.Text.Trim());
+               
             }
             catch {
                 MessageBox.Show("输入端数有误，请检查！", "输入端数错误提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            inputList = new List<TextBox>();
-
-            for (int i = 1; i < inputNum + 1; i++) {
+            for (int i = 0; i < inputNum; i++) {
                 TextBox textBox = new TextBox {
                     //int->ASCII->String(A开始)
-                    Name = Convert.ToString(Convert.ToChar(64 + i)),
-                    Text = Convert.ToString(Convert.ToChar(64 + i)),
-                    Location = new Point(PublicVar.PicGateWV / 2, PublicVar.PicGateHV / 2 * i),
-                    Size = new Size(PublicVar.PicGateWV / 2, PublicVar.PicGateHV / 2)
+                    Name = Convert.ToString(Convert.ToChar(65 + i)),
+                    Text = Convert.ToString(Convert.ToChar(65 + i)) + "=1",
+                    Tag = i,
+                    Location = new Point((PublicVar.PicGateWV) * ((i / 16)), (PublicVar.PicGateHV / 2) * ((i % 16 + 1) + 1)),
+                    Size = new Size(PublicVar.PicGateWV, PublicVar.PicGateHV / 2)
                 };
-                inputList.Add(textBox);
+                InputList.Add(textBox);
+                new MoveControl(InputList[i]);
             }
-            BoxDesign.Controls.AddRange(inputList.ToArray());
+            BoxDesign.Controls.AddRange(InputList.ToArray());
         }
 
+        /**
+         * 清空设计区
+         */
         private void BtnDelete_Click(object sender, EventArgs e) {
             BoxDesign.Controls.Clear();
-            gateList.Clear();
+
+            for (int i = inputNum - 1; i >= 0; i--) {
+                BoxDesign.Controls.Remove(InputList[i]);
+                InputList[i].Dispose();
+            }
+            InputList.Clear();
+
+            for (int i = pbCount - 1; i >= 0; i--) {
+                BoxDesign.Controls.Remove(GateList[i]);
+                GateList[i].Dispose();
+            }
+            GateList.Clear();
+
             pbCount = 0;
+            inputNum = 0;
         }
 
         private void PictureAnd_Click(object sender, EventArgs e) {
@@ -187,73 +232,12 @@ namespace Embedded._02_Form {
                 e.Cancel = true;    //手动取消
             }
         }
-    }
 
-    public class MoveControl {
-        public MoveControl(Control ctrl) {
-            currentControl = ctrl;
-            AddEvents();
-        }
-
-        private Control currentControl;
-        private Point pPoint;
-        private Point cPoint;
-
-
-        private void AddEvents() {
-            currentControl.MouseMove += new MouseEventHandler(MouseMove);
-            currentControl.MouseDown += new MouseEventHandler(MouseDown);
-            currentControl.MouseUp += new MouseEventHandler(MouseUp);
-        }
-
-        private void MouseUp(object sender, MouseEventArgs e) {
-            this.currentControl.Refresh();
-        }
-
-        private void MouseDown(object sender, MouseEventArgs e) {
-            pPoint = Cursor.Position;
-        }
-
-        private void MouseMove(object sender, MouseEventArgs e) {
-            int x = 0, y = 0;
-
-            Cursor.Current = Cursors.SizeAll;
-
-            if (e.Button == MouseButtons.Left) {
-                cPoint = Cursor.Position;
-
-                x = (cPoint.X - pPoint.X);
-                y = (cPoint.Y - pPoint.Y);
-                int ph = PublicVar.PicGateHV >> 1, pw = PublicVar.PicGateWV >>2;
-                if ((x < - ph | (x > ph) | (y < -ph) | (y > ph))) {
-                    if (x < -pw) {
-                        x = -ph;
-                    }
-                    else if (x > pw) {
-                        x = ph;
-                    }
-                    else {
-                        x = 0;
-                    }
-
-                    if (y < -pw) {
-                        y = -ph;
-                    }
-                    else if (y > pw) {
-                        y = ph;
-                    }
-                    else {
-                        y = 0;
-                    }
-                    currentControl.Location = new Point(currentControl.Location.X + x, currentControl.Location.Y + y);
-                    pPoint = cPoint;
-                }
+        private void InputNum_KeyPress(object sender, KeyPressEventArgs e) {
+            if (e.KeyChar != '\b' && !Char.IsDigit(e.KeyChar)) {
+                e.Handled = true;
             }
         }
-
-        
-
-
     }
 
 }

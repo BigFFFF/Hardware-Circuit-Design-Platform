@@ -99,9 +99,11 @@
             // 
             this.TextInputNum.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.TextInputNum.Location = new System.Drawing.Point(132, 24);
+            this.TextInputNum.MaxLength = 1000;
             this.TextInputNum.Name = "TextInputNum";
             this.TextInputNum.Size = new System.Drawing.Size(88, 30);
             this.TextInputNum.TabIndex = 2;
+            this.TextInputNum.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.InputNum_KeyPress);
             // 
             // BoxGate
             // 
