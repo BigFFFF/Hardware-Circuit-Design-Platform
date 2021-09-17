@@ -8,35 +8,39 @@ namespace Embedded._03_Function {
             AddEvents();
         }
 
-        private Control currentControl;
+        private readonly Control currentControl;
         private Point pPoint;
         private Point cPoint;
 
+        public Control CurrentControl => currentControl;
+
+        public Point PPoint { get => pPoint; set => pPoint = value; }
+        public Point CPoint { get => cPoint; set => cPoint = value; }
 
         private void AddEvents() {
-            currentControl.MouseMove += new MouseEventHandler(MouseMove);
-            currentControl.MouseDown += new MouseEventHandler(MouseDown);
-            currentControl.MouseUp += new MouseEventHandler(MouseUp);
+            CurrentControl.MouseMove += new MouseEventHandler(MouseMove);
+            CurrentControl.MouseDown += new MouseEventHandler(MouseDown);
+            CurrentControl.MouseUp += new MouseEventHandler(MouseUp);
         }
 
         private void MouseUp(object sender, MouseEventArgs e) {
-            this.currentControl.Refresh();
+            CurrentControl.Refresh();
         }
 
         private void MouseDown(object sender, MouseEventArgs e) {
-            pPoint = Cursor.Position;
+            PPoint = Cursor.Position;
         }
 
         private void MouseMove(object sender, MouseEventArgs e) {
-            int x = 0, y = 0;
+            int x, y;
 
             Cursor.Current = Cursors.SizeAll;
 
             if (e.Button == MouseButtons.Left) {
-                cPoint = Cursor.Position;
+                CPoint = Cursor.Position;
 
-                x = (cPoint.X - pPoint.X);
-                y = (cPoint.Y - pPoint.Y);
+                x = (CPoint.X - PPoint.X);
+                y = (CPoint.Y - PPoint.Y);
                 int ph = PublicVar.PicGateHV >> 1, pw = PublicVar.PicGateWV >> 2;
                 if ((x < -ph | (x > ph) | (y < -ph) | (y > ph))) {
                     if (x < -pw) {
@@ -58,8 +62,8 @@ namespace Embedded._03_Function {
                     else {
                         y = 0;
                     }
-                    currentControl.Location = new Point(currentControl.Location.X + x, currentControl.Location.Y + y);
-                    pPoint = cPoint;
+                    CurrentControl.Location = new Point(CurrentControl.Location.X + x, CurrentControl.Location.Y + y);
+                    PPoint = CPoint;
                 }
             }
         }

@@ -52,7 +52,7 @@
             this.BtnDelete = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.BoxDesign = new System.Windows.Forms.GroupBox();
-            this.button3 = new System.Windows.Forms.Button();
+            this.BtnComponent = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
@@ -314,15 +314,16 @@
             this.BoxDesign.TabStop = false;
             this.BoxDesign.Text = "设计区域";
             // 
-            // button3
+            // BtnComponent
             // 
-            this.button3.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button3.Location = new System.Drawing.Point(28, 633);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(81, 41);
-            this.button3.TabIndex = 7;
-            this.button3.Text = "组件电路";
-            this.button3.UseVisualStyleBackColor = true;
+            this.BtnComponent.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.BtnComponent.Location = new System.Drawing.Point(28, 633);
+            this.BtnComponent.Name = "BtnComponent";
+            this.BtnComponent.Size = new System.Drawing.Size(81, 41);
+            this.BtnComponent.TabIndex = 7;
+            this.BtnComponent.Text = "组件电路";
+            this.BtnComponent.UseVisualStyleBackColor = true;
+            this.BtnComponent.Click += new System.EventHandler(this.BtnComponent_Click);
             // 
             // button4
             // 
@@ -405,7 +406,7 @@
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.BtnComponent);
             this.Controls.Add(this.BoxDesign);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.BtnDelete);
@@ -453,7 +454,7 @@
         private System.Windows.Forms.PictureBox PictureNand;
         private System.Windows.Forms.PictureBox PictureNot;
         private System.Windows.Forms.PictureBox PictureOr;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button BtnComponent;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;

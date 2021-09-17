@@ -161,9 +161,11 @@ namespace Embedded._02_Form {
             BoxDesign.Controls.AddRange(InputList.ToArray());
         }
 
-        /**
-         * 清空设计区
-         */
+        /// <summary>
+        /// 清空设计区
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnDelete_Click(object sender, EventArgs e) {
             BoxDesign.Controls.Clear();
 
@@ -237,6 +239,10 @@ namespace Embedded._02_Form {
             if (e.KeyChar != '\b' && !Char.IsDigit(e.KeyChar)) {
                 e.Handled = true;
             }
+        }
+
+        private void BtnComponent_Click(object sender, EventArgs e) {
+
         }
     }
 

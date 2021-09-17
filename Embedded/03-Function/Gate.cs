@@ -9,38 +9,38 @@ namespace Embedded._03_Function {
 
         private bool _alreadyDisposed = false;
 
-        /**
-         * 逻辑形式
-         */
+        /// <summary>
+        /// 逻辑形式
+        /// </summary>
         private string bd;
 
-        /**
-         * 节点IO
-         */
+        /// <summary>
+        /// 节点IO
+        /// </summary>
         private string pIO;
 
-        /**
-         * 逻辑运算符
-         */
+        /// <summary>
+        /// 逻辑运算符
+        /// </summary>
         private string op;
 
-        /**
-         * 逻辑值
-         */
+        /// <summary>
+        /// 逻辑值
+        /// </summary>
         private bool bGateVal;
 
-        /**
-         * 上节点
-         */
+        /// <summary>
+        /// 上节点
+        /// </summary>
         private Gate lChild;
 
-        /**
-         * 下节点
-         */
+        /// <summary>
+        /// 下节点
+        /// </summary>
         private Gate rChild;
 
         public Gate() {
-            Bd = "";
+            Bd = string.Empty;
             LChild = null;
             RChild = null;
         }
@@ -62,7 +62,7 @@ namespace Embedded._03_Function {
         }
 
         public Gate(string pIO, string op) {
-            Bd = "";
+            Bd = string.Empty;
             PIO = pIO;
             Op = op;
             LChild = null;
@@ -82,12 +82,13 @@ namespace Embedded._03_Function {
                 }
             }
         }
-
-        /**
-         * 节点逻辑值表达式
-         * 1：上引脚
-         * 2：下引脚
-         */
+        /// <summary>
+        /// 节点逻辑值表达式
+        /// 1：上引脚
+        /// 2：下引脚
+        /// </summary>
+        /// <param name="pIO"></param>
+        /// <param name="op"></param>
         public void CalBDS(string pIO, string op) {
 
             PIO = pIO;
@@ -132,9 +133,10 @@ namespace Embedded._03_Function {
                     return;
             }
         }
-        /**
-         * 节点逻辑值计算
-         */
+        /// <summary>
+        /// 节点逻辑值计算
+        /// </summary>
+        /// <param name="op"></param>
         public void Cal(string op) {
             Op = op;
             switch (Op) {
