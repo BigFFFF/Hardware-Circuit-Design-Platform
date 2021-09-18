@@ -62,6 +62,10 @@ namespace Embedded._02_Form {
         public FrmMain() {
             InitializeComponent();
 
+            InitFrmMain();
+        }
+
+        private void InitFrmMain() {
             PbCount = 0;
             InputNum = 0;
             InputList = new List<TextBox>();
@@ -73,6 +77,7 @@ namespace Embedded._02_Form {
                 new MoveControl(ctrl);
             }
         }
+
 
         private void FrmMain_Load(object sender, EventArgs e) {
             Timer.Interval = 1000;
@@ -225,8 +230,6 @@ namespace Embedded._02_Form {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void BtnDelete_Click(object sender, EventArgs e) {
-            BoxDesign.Controls.Clear();
-
             for (int i = InputNum - 1; i >= 0; i--) {
                 BoxDesign.Controls.Remove(InputList[i]);
                 InputList[i].Dispose();
@@ -239,12 +242,13 @@ namespace Embedded._02_Form {
             }
             GateList.Clear();
 
-            PbCount = 0;
-            InputNum = 0;
+            BoxDesign.Controls.Clear();
+
+            BtnReconstruction_Click(sender, e);
 
             TextInputNum.Text = String.Empty;
-            LabelExpression.Text = "表达式：";
-            LabelEvaluation.Text = "逻辑值：";
+
+            InitFrmMain();
         }
 
         private void PictureAnd_Click(object sender, EventArgs e) {
@@ -418,7 +422,7 @@ namespace Embedded._02_Form {
             for (int i = 0; i < BTSun; i++) {
                 BTree[i].PostOrder_CalBDS_ReplaceBd(BTree[i].Head);
 
-                tempText = tempText + "No" + i.ToString() + "=" + BTree[i].Head.Bd + " ";
+                tempText = tempText + "No" + i.ToString() + "=" + BTree[i].Head.Bd + ";";
             }
             LabelExpression.Text += tempText;
         }
@@ -437,7 +441,7 @@ namespace Embedded._02_Form {
             for (int i = 0; i < BTSun; i++) {
                 BTree[i].PostOrder_Cal(BTree[i].Head);
 
-                tempText = tempText + "No" + i.ToString() + "=" + BTree[i].Head.BGateVal;
+                tempText = tempText + "No" + i.ToString() + "=" + BTree[i].Head.BGateVal + ";";
             }
             LabelEvaluation.Text += tempText;
         }
@@ -456,7 +460,7 @@ namespace Embedded._02_Form {
             LabelEvaluation.Text = "逻辑值：";
 
 
-            for (int i = 0; i < BTSun; i++) {
+            for (int i = BTSun - 1; i >= 0; i--) {
                 if (BTree[i] != null) {
                     BTree[i].Data = String.Empty;
                     BTree[i].Dispose();
@@ -465,11 +469,14 @@ namespace Embedded._02_Form {
 
             BTSun = 0;
 
-            for (int i = 0; i < InputNum; i++) {
+            for (int i = InputNum - 1; i >= 0; i--) {
                 if (BGate[i] != null) {
                     BGate[i].Dispose();
                 }
             }
+
+            BGate = new Gate[127];
+            BTree = new BinaryTree[16];
         }
     }
 
