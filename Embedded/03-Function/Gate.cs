@@ -5,6 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Embedded._03_Function {
+
+    /// <summary>
+    /// 门电路节点类
+    /// </summary>
     public class Gate {
 
         private bool disposedValue = false; // 要检测冗余调用
@@ -69,6 +73,10 @@ namespace Embedded._03_Function {
             RChild = null;
         }
 
+        /// <summary>
+        /// 电路逻辑值映射
+        /// </summary>
+        /// <param name="bd"></param>
         public void SetGateVar(string bd) {
             if (bd.Substring(bd.Length - 2) == "=1") {
                 BGateVal = true;
@@ -77,6 +85,7 @@ namespace Embedded._03_Function {
                 BGateVal = false;
             }
         }
+
         /// <summary>
         /// 节点逻辑值表达式
         /// 1：上引脚
@@ -181,8 +190,12 @@ namespace Embedded._03_Function {
         public string Op { get => op; set => op = value; }
         public bool BGateVal { get => bGateVal; set => bGateVal = value; }
 
-        #region IDisposable Support       
 
+        #region IDisposable Support       
+        /// <summary>
+        /// IDisposable自动生成Dispose及析构函数
+        /// </summary>
+        /// <param name="disposing"></param>
         protected virtual void Dispose(bool disposing) {
             if (!disposedValue) {
                 if (disposing) {

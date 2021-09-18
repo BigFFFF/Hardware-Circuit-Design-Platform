@@ -4,8 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Embedded._03_Function
-{
+namespace Embedded._03_Function {
+
+    /// <summary>
+    /// 用户数据库实体类
+    /// </summary>
     public class User {
 
         private UInt16 id;

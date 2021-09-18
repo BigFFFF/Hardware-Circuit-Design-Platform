@@ -10,13 +10,45 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Embedded._02_Form {
+
+    /// <summary>
+    /// 主窗体类
+    /// </summary>
     public partial class FrmMain : Form {
+
+        /// <summary>
+        /// 门电路数
+        /// </summary>
         private int pbCount;
+
+        /// <summary>
+        /// 输入端数
+        /// </summary>
         private int inputNum;
+
+        /// <summary>
+        /// 二叉树数
+        /// </summary>
         private int bTSun;
+
+        /// <summary>
+        /// 输入端数列表
+        /// </summary>
         private List<TextBox> inputList;
+
+        /// <summary>
+        /// 门电路数列表
+        /// </summary>
         private List<PictureBox> gateList;
+
+        /// <summary>
+        /// 门电路二叉树映射
+        /// </summary>
         private Gate[] bGate;
+
+        /// <summary>
+        /// 二叉树数组
+        /// </summary>
         private BinaryTree[] bTree;
 
         public int PbCount { get => pbCount; set => pbCount = value; }
@@ -52,7 +84,11 @@ namespace Embedded._02_Form {
             toolStripStatusLabel1.Text = "您好,欢迎登录系统！" + "当前时间：" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
         }
 
-
+        /// <summary>
+        /// 电路图片点击置放
+        /// </summary>
+        /// <param name="pathStr1"></param>
+        /// <param name="gateName"></param>
         private void Picture_Click(string pathStr1, string gateName) {
             string pathStr2 = "", pathStr3 = "";
             int inputI, outputI;
@@ -108,7 +144,6 @@ namespace Embedded._02_Form {
                         GateList[PbCount].Name = pathStr1 + pathStr2 + pathStr3;
                         GateList[PbCount].Size = new Size(PublicVar.PicGateWV, PublicVar.PicGateHV);
                         GateList[PbCount].Location = new Point(PublicVar.PicGateWV * ((PbCount / 8)  + 1), PublicVar.PicGateHV * ((PbCount % 8) + 1));
-                        //GateList[PbCount].Location = new Point(PublicVar.PicGateWV * (PbCount / 5 + 1), PublicVar.PicGateHV * (PbCount % 5));
                         GateList[PbCount].DoubleClick += new EventHandler(GateDouble_Click);
 
                         new MoveControl(GateList[PbCount]);
@@ -127,6 +162,11 @@ namespace Embedded._02_Form {
             }
         }
 
+        /// <summary>
+        /// 双击电路图片删除
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GateDouble_Click(object sender, EventArgs e) {
             PictureBox pictureBox = (PictureBox)sender;
 
@@ -137,6 +177,11 @@ namespace Embedded._02_Form {
             PbCount--;
         }
 
+        /// <summary>
+        /// 输入端数确定
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnConfirm_Click(object sender, EventArgs e) {
 
             try {
@@ -166,7 +211,6 @@ namespace Embedded._02_Form {
                     Text = Convert.ToString(Convert.ToChar(65 + i)) + "=1",
                     Tag = i,
                     Location = new Point((PublicVar.PicGateWV) * ((i / 16)), (PublicVar.PicGateHV / 2) * ((i % 16 + 1) + 1)),
-                    //Location = new Point(0, PublicVar.PicGateHV * ((i + 1) % 16) / 2),
                     Size = new Size(PublicVar.PicGateWV, PublicVar.PicGateHV / 2)
                 };
                 InputList.Add(textBox);
@@ -243,6 +287,11 @@ namespace Embedded._02_Form {
             Picture_Click(pathStr1, LabelWire.Text.Trim());
         }
 
+        /// <summary>
+        /// 退出系统
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e) {
             DialogResult result = MessageBox.Show("您确定要退出系统吗？", "退出提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes) {
@@ -253,27 +302,34 @@ namespace Embedded._02_Form {
             }
         }
 
+        /// <summary>
+        /// 输入端数限制输入
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void InputNum_KeyPress(object sender, KeyPressEventArgs e) {
             if (e.KeyChar != '\b' && !Char.IsDigit(e.KeyChar)) {
                 e.Handled = true;
             }
         }
 
+        /// <summary>
+        /// 组件电路
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnComponent_Click(object sender, EventArgs e) {
             int preK, k = 0;
 
             BTSun = 0;
 
-            //输入端数
+            //输入端数与门电路对接
             for (int i = 0; i < InputNum; i++) {
                 if (BGate[i] == null) {
                     BGate[i] = new Gate(InputList[i].Text);
                 }
                 preK = k;
                 for(int j = 0; j < PbCount; j++) {
-                    /*if ((GateList[j].Location.X == 0) && (GateList[j].Location.Y == 0)) {
-                        continue;
-                    }*/
                     if ((InputList[i].Location.Y == GateList[j].Location.Y) && ((InputList[i].Location.X + PublicVar.PicGateWV) == GateList[j].Location.X)) {
                         if (BGate[j + InputNum] == null) {
                             BGate[j + InputNum] = new Gate();
@@ -301,11 +357,8 @@ namespace Embedded._02_Form {
                 }
             }
 
-            //门电路
+            //门电路与门电路对接
             for (int i = 0; i < PbCount; i++) {
-                /*if ((GateList[i].Location.X == 0) && (GateList[i].Location.Y == 0)) {
-                    continue;
-                }*/
                 preK = k;
                 if (BGate[i + InputNum] == null) {
                     BGate[i + InputNum] = new Gate(GateList[i].Name.Substring(GateList[i].Name.Length - 2), GateList[i].Name.Substring(0, GateList[i].Name.Length - 2));
@@ -314,9 +367,6 @@ namespace Embedded._02_Form {
                     if (i == j) {
                         continue;
                     }
-                    /*if ((GateList[i].Location.X == 0) && (GateList[j].Location.Y == 0)) {
-                        continue;
-                    }*/
                     //比较前低后高
                     if ((GateList[i].Location.Y == (GateList[j].Location.Y + PublicVar.PicGateHV / 2)) && ((GateList[i].Location.X + PublicVar.PicGateWV) == GateList[j].Location.X)) {
                         if ((GateList[i].Name.Substring(GateList[i].Name.Length - 1) == "s") || (GateList[i].Name.Substring(GateList[j].Name.Length - 1) == "2")) {
@@ -392,6 +442,11 @@ namespace Embedded._02_Form {
             LabelEvaluation.Text += tempText;
         }
 
+        /// <summary>
+        /// 重建表达式，逻辑
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnReconstruction_Click(object sender, EventArgs e) {
 
             BtnComponent.Enabled = true;

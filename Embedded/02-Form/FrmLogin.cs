@@ -5,11 +5,20 @@ using System;
 using System.Windows.Forms;
 
 namespace Embedded {
+
+    /// <summary>
+    /// 登录窗口类
+    /// </summary>
     public partial class FrmLogin : Form {
         public FrmLogin() {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// 输入信息判空
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         private User GetText(User user) {
             //获取用户输入信息
             user.Num = TextNum.Text.Trim();
@@ -36,6 +45,11 @@ namespace Embedded {
             return user;
         }
 
+        /// <summary>
+        /// 登录
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnLogin_Click(object sender, EventArgs e) {
             User user = new User();
             user = GetText(user);
@@ -72,6 +86,11 @@ namespace Embedded {
             }
         }
 
+        /// <summary>
+        /// 注册
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnRegister_Click(object sender, EventArgs e) {
             User user = new User();
             user = GetText(user);

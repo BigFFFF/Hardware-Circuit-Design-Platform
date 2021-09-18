@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Embedded._03_Function {
 
-
+    /// <summary>
+    /// 二叉树类
+    /// </summary>
     public class BinaryTree {
         
         private Gate head;

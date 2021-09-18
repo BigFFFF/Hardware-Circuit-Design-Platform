@@ -2,6 +2,10 @@
 using System.Windows.Forms;
 
 namespace Embedded._03_Function {
+
+    /// <summary>
+    /// BoxDesign组件移动类
+    /// </summary>
     public class MoveControl {
         public MoveControl(Control ctrl) {
             currentControl = ctrl;
