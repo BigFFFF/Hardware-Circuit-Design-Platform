@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Embedded._03_Function {
     public class Gate {
 
-        private bool _alreadyDisposed = false;
+        private bool disposedValue = false; // 要检测冗余调用
 
         /// <summary>
         /// 逻辑形式
@@ -70,16 +70,11 @@ namespace Embedded._03_Function {
         }
 
         public void SetGateVar(string bd) {
-            if (bd.Length > 0) {
-                Bd = bd.Substring(0, 1);
+            if (bd.Substring(bd.Length - 2) == "=1") {
+                BGateVal = true;
             }
-            else if (bd.Length > 2) {
-                if (bd.Substring(bd.Length - 2) == "=1") {
-                    BGateVal = true;
-                }
-                else if (bd.Substring(bd.Length - 2) == "=0") {
-                    BGateVal = false;
-                }
+            else if (bd.Substring(bd.Length - 2) == "=0") {
+                BGateVal = false;
             }
         }
         /// <summary>
@@ -167,7 +162,7 @@ namespace Embedded._03_Function {
                     BGateVal = !(LChild.BGateVal ^ RChild.BGateVal);
                     break;
                 case "wire":
-                    if ((LChild !=null) & (RChild == null)) {
+                    if ((LChild != null) & (RChild == null)) {
                         BGateVal = LChild.BGateVal;
                     }
                     else if ((LChild == null) & (RChild != null)) {
@@ -185,7 +180,36 @@ namespace Embedded._03_Function {
         public string PIO { get => pIO; set => pIO = value; }
         public string Op { get => op; set => op = value; }
         public bool BGateVal { get => bGateVal; set => bGateVal = value; }
-        public bool AlreadyDisposed { get => _alreadyDisposed; set => _alreadyDisposed = value; }
+
+        #region IDisposable Support       
+
+        protected virtual void Dispose(bool disposing) {
+            if (!disposedValue) {
+                if (disposing) {
+                    // TODO: 释放托管状态(托管对象)。
+                }
+
+                // TODO: 释放未托管的资源(未托管的对象)并在以下内容中替代终结器。
+                // TODO: 将大型字段设置为 null。
+
+                disposedValue = true;
+            }
+        }
+
+        // TODO: 仅当以上 Dispose(bool disposing) 拥有用于释放未托管资源的代码时才替代终结器。
+        ~Gate() {
+          // 请勿更改此代码。将清理代码放入以上 Dispose(bool disposing) 中。
+            Dispose(false);
+        }
+
+        // 添加此代码以正确实现可处置模式。
+        public void Dispose() {
+            // 请勿更改此代码。将清理代码放入以上 Dispose(bool disposing) 中。
+            Dispose(true);
+            // TODO: 如果在以上内容中替代了终结器，则取消注释以下行。
+            GC.SuppressFinalize(this);
+        }
+        #endregion
     }
 
 }

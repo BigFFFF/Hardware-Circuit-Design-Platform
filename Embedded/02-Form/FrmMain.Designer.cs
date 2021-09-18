@@ -50,13 +50,13 @@
             this.PictureOr = new System.Windows.Forms.PictureBox();
             this.PictureAnd = new System.Windows.Forms.PictureBox();
             this.BtnDelete = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
+            this.LabelExpression = new System.Windows.Forms.Label();
             this.BoxDesign = new System.Windows.Forms.GroupBox();
             this.BtnComponent = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.label11 = new System.Windows.Forms.Label();
+            this.BtnReconstruction = new System.Windows.Forms.Button();
+            this.BtnExpression = new System.Windows.Forms.Button();
+            this.BtnEvaluation = new System.Windows.Forms.Button();
+            this.LabelEvaluation = new System.Windows.Forms.Label();
             this.StatusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.SysTime = new System.Windows.Forms.ToolStripStatusLabel();
@@ -290,19 +290,19 @@
             this.BtnDelete.Name = "BtnDelete";
             this.BtnDelete.Size = new System.Drawing.Size(81, 41);
             this.BtnDelete.TabIndex = 4;
-            this.BtnDelete.Text = "删除";
+            this.BtnDelete.Text = "清空";
             this.BtnDelete.UseVisualStyleBackColor = true;
             this.BtnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
             // 
-            // label2
+            // LabelExpression
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(240, 27);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(85, 19);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "表达式：";
+            this.LabelExpression.AutoSize = true;
+            this.LabelExpression.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.LabelExpression.Location = new System.Drawing.Point(240, 27);
+            this.LabelExpression.Name = "LabelExpression";
+            this.LabelExpression.Size = new System.Drawing.Size(85, 19);
+            this.LabelExpression.TabIndex = 5;
+            this.LabelExpression.Text = "表达式：";
             // 
             // BoxDesign
             // 
@@ -325,45 +325,48 @@
             this.BtnComponent.UseVisualStyleBackColor = true;
             this.BtnComponent.Click += new System.EventHandler(this.BtnComponent_Click);
             // 
-            // button4
+            // BtnReconstruction
             // 
-            this.button4.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button4.Location = new System.Drawing.Point(139, 633);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(81, 41);
-            this.button4.TabIndex = 8;
-            this.button4.Text = "重建";
-            this.button4.UseVisualStyleBackColor = true;
+            this.BtnReconstruction.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.BtnReconstruction.Location = new System.Drawing.Point(139, 633);
+            this.BtnReconstruction.Name = "BtnReconstruction";
+            this.BtnReconstruction.Size = new System.Drawing.Size(81, 41);
+            this.BtnReconstruction.TabIndex = 8;
+            this.BtnReconstruction.Text = "重建";
+            this.BtnReconstruction.UseVisualStyleBackColor = true;
+            this.BtnReconstruction.Click += new System.EventHandler(this.BtnReconstruction_Click);
             // 
-            // button5
+            // BtnExpression
             // 
-            this.button5.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button5.Location = new System.Drawing.Point(28, 689);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(81, 41);
-            this.button5.TabIndex = 9;
-            this.button5.Text = "求表达式";
-            this.button5.UseVisualStyleBackColor = true;
+            this.BtnExpression.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.BtnExpression.Location = new System.Drawing.Point(28, 689);
+            this.BtnExpression.Name = "BtnExpression";
+            this.BtnExpression.Size = new System.Drawing.Size(81, 41);
+            this.BtnExpression.TabIndex = 9;
+            this.BtnExpression.Text = "求表达式";
+            this.BtnExpression.UseVisualStyleBackColor = true;
+            this.BtnExpression.Click += new System.EventHandler(this.BtnExpression_Click);
             // 
-            // button6
+            // BtnEvaluation
             // 
-            this.button6.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button6.Location = new System.Drawing.Point(139, 689);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(81, 41);
-            this.button6.TabIndex = 2;
-            this.button6.Text = "求值";
-            this.button6.UseVisualStyleBackColor = true;
+            this.BtnEvaluation.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.BtnEvaluation.Location = new System.Drawing.Point(139, 689);
+            this.BtnEvaluation.Name = "BtnEvaluation";
+            this.BtnEvaluation.Size = new System.Drawing.Size(81, 41);
+            this.BtnEvaluation.TabIndex = 2;
+            this.BtnEvaluation.Text = "求值";
+            this.BtnEvaluation.UseVisualStyleBackColor = true;
+            this.BtnEvaluation.Click += new System.EventHandler(this.BtnEvaluation_Click);
             // 
-            // label11
+            // LabelEvaluation
             // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label11.Location = new System.Drawing.Point(240, 68);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(85, 19);
-            this.label11.TabIndex = 10;
-            this.label11.Text = "逻辑值：";
+            this.LabelEvaluation.AutoSize = true;
+            this.LabelEvaluation.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.LabelEvaluation.Location = new System.Drawing.Point(240, 68);
+            this.LabelEvaluation.Name = "LabelEvaluation";
+            this.LabelEvaluation.Size = new System.Drawing.Size(85, 19);
+            this.LabelEvaluation.TabIndex = 10;
+            this.LabelEvaluation.Text = "逻辑值：";
             // 
             // StatusStrip1
             // 
@@ -402,13 +405,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1171, 756);
             this.Controls.Add(this.StatusStrip1);
-            this.Controls.Add(this.label11);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.LabelEvaluation);
+            this.Controls.Add(this.BtnEvaluation);
+            this.Controls.Add(this.BtnExpression);
+            this.Controls.Add(this.BtnReconstruction);
             this.Controls.Add(this.BtnComponent);
             this.Controls.Add(this.BoxDesign);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.LabelExpression);
             this.Controls.Add(this.BtnDelete);
             this.Controls.Add(this.BoxGate);
             this.Controls.Add(this.TextInputNum);
@@ -444,7 +447,7 @@
         private System.Windows.Forms.TextBox TextInputNum;
         private System.Windows.Forms.GroupBox BoxGate;
         private System.Windows.Forms.Button BtnDelete;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label LabelExpression;
         private System.Windows.Forms.GroupBox BoxDesign;
         private System.Windows.Forms.PictureBox PictureAnd;
         private System.Windows.Forms.PictureBox PictureWire;
@@ -455,9 +458,9 @@
         private System.Windows.Forms.PictureBox PictureNot;
         private System.Windows.Forms.PictureBox PictureOr;
         private System.Windows.Forms.Button BtnComponent;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button BtnReconstruction;
+        private System.Windows.Forms.Button BtnExpression;
+        private System.Windows.Forms.Button BtnEvaluation;
         private System.Windows.Forms.Label LabelWire;
         private System.Windows.Forms.Label LabelXnor;
         private System.Windows.Forms.Label LabelXor;
@@ -466,7 +469,7 @@
         private System.Windows.Forms.Label LabelNot;
         private System.Windows.Forms.Label LabelOr;
         private System.Windows.Forms.Label LabelAnd;
-        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label LabelEvaluation;
         private System.Windows.Forms.StatusStrip StatusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel SysTime;

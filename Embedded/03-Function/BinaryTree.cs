@@ -42,7 +42,16 @@ namespace Embedded._03_Function {
                 
                 gate.CalBDS(gate.PIO, gate.Op);
 
-                ReplaceBd(gate);
+                if ((gate.LChild != null) && (gate.RChild == null)) {
+                    gate.Bd = gate.Bd.Replace("1", gate.LChild.Bd);
+                }
+                else if ((gate.LChild == null) && (gate.RChild != null)) {
+                    gate.Bd = gate.Bd.Replace("2", gate.RChild.Bd);
+                }
+                else if ((gate.LChild != null) && (gate.RChild != null)) {
+                    gate.Bd = gate.Bd.Replace("1", gate.LChild.Bd);
+                    gate.Bd = gate.Bd.Replace("2", gate.RChild.Bd);
+                }
             }
         }
 
@@ -71,24 +80,6 @@ namespace Embedded._03_Function {
                 gate.BGateVal = false;
                 Data = string.Empty;
             }
-        }
-
-        /// <summary>
-        /// 替换节点逻辑形式 
-        /// </summary>
-        /// <param name="gate"></param>
-        private void ReplaceBd(Gate gate) {
-            if ((gate.LChild != null) & (gate.RChild == null)) {
-                gate.Bd = gate.Bd.Replace("1", gate.LChild.Bd);
-            }
-            else if ((gate.LChild == null) & (gate.RChild != null)) {
-                gate.Bd = gate.Bd.Replace("2", gate.RChild.Bd);
-            }
-            else if ((gate.LChild != null) & (gate.RChild != null)) {
-                gate.Bd = gate.Bd.Replace("1", gate.LChild.Bd);
-                gate.Bd = gate.Bd.Replace("2", gate.RChild.Bd);
-            }
-            //Data = gate.Bd;
         }
 
         /// <summary>
