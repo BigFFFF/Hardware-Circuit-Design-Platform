@@ -85,8 +85,10 @@ namespace Embedded._02_Form {
         }
 
         private void Timer_Tick(object sender, EventArgs e) {
+            Point formPoint = this.PointToClient(Control.MousePosition);
 
-            toolStripStatusLabel1.Text = "您好,欢迎登录系统！" + "当前时间：" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+            toolStripStatusLabel1.Text = "您好,欢迎登录系统！" + "当前时间：" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + ";";
+            toolStripStatusLabel1.Text += "X:" + formPoint.X + ",Y:" + formPoint.Y;
         }
 
         /// <summary>
